@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Magnew Register</title>
+	<link rel="stylesheet" href="public/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+
+	<script type="text/javascript" src="public/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript">
+		function validateForm() {
+			if (validateFullname() & validateEmail() & validatePass() & validateRePassword()) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+
+		function validatePass() {
+			var field = $('#password').val();
+			var filter = /^.{6,}$/;
+
+			if (!filter.test(field)) {
+				$('#password').parent().parent().addClass('has-error');
+				$('#password').parent().parent().removeClass('has-success');
+				$('#password').next().html('Pass có ít nhất 6 kí tự!');
+				return false;
+			}
+			else {
+				$('#password').parent().parent().removeClass('has-error');
+				$('#password').parent().parent().addClass('has-success');
+				$('#password').next().html('');
+				return true;
+			}
+		}
+
+		function validateFullname() {
+			var field = $('#fullname').val();
+			var filter = /^\w+$/;
+
+			if (!filter.test(field)) {
+				$('#fullname').parent().parent().addClass('has-error');
+				$('#fullname').parent().parent().removeClass('has-success');
+				$('#fullname').next().html('Username không hợp lệ!');
+				return false;
+			}
+			else {
+				$('#fullname').parent().parent().removeClass('has-error');
+				$('#fullname').parent().parent().addClass('has-success');
+				$('#fullname').next().html('');
+				return true;
+			}
+		}
+
+		function validateEmail() {
+			var field = $('#email').val();
+			var filter = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.[a-z]{2,4})+$/;
+
+			if (!filter.test(field)) {
+				$('#email').parent().parent().addClass('has-error');
+				$('#email').parent().parent().removeClass('has-success');
+				$('#email').next().html('Email không đúng định dạng');
+				return false;
+			}
+			else {
+				$('#email').parent().parent().removeClass('has-error');
+				$('#email').parent().parent().addClass('has-success');
+				$('#email').next().html('');
+				return true;
+			}
+		}
+
+		function validateRePassword() {
+			var psw = $('#password').val();
+			var repsw = $('#repassword').val();
+
+			if (repsw != psw) {
+				$('#repassword').parent().parent().addClass('has-error');
+				$('#repassword').parent().parent().removeClass('has-success');
+				$('#repassword').next().html('Password không trùng nhau');
+				return false;
+			}
+			else {
+				$('#repassword').parent().parent().removeClass('has-error');
+				$('#repassword').parent().parent().addClass('has-success');
+				$('#repassword').next().html('');
+				return true;
+			}
+		}
+	</script>
+</head>
+<body>
+	<div class="container">
+		<a href="../index.php"><img src="../public/images/logo.png" alt=""></a>
+		<form action="xuly-register.php" method="POST" class="form-horizontal" role="form" onsubmit="return validateForm();">
+				<div class="form-group">
+					<legend>Sign up</legend>
+				</div>
+				
+				<div class="form-group">
+					<label for="fullname" class="control-label col-sm-2">Username</label>
+					<div class="col-sm-10">
+						<input type="text" name="username" id="fullname" class="form-control" placeholder="Your username" aria-required="true" required="required" onkeyup="validateFullname()">
+						<span class="help-block"></span>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="email" class="control-label col-sm-2">Email</label>
+					<div class="col-sm-10">
+						<input type="text" name="email" id="email" class="form-control" aria-required="true" required="required" placeholder="Your email" onkeyup="validateEmail()">
+						<span class="help-block"></span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="password" class="control-label col-sm-2">Password</label>
+					<div class="col-sm-10">
+						<input type="password" name="password" id="password" aria-required="true" required="required" placeholder="Password" class="form-control" onkeyup="validatePass()">
+						<span class="help-block"></span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="repassword" class="control-label col-sm-2">Retype Password</label>
+					<div class="col-sm-10">
+						<input type="password" name="repassword" id="repassword" placeholder="Retype Password" aria-required="true" required="required" class="form-control" onkeyup="validateRePassword()">
+						<span class="help-block"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10 col-sm-offset-2">
+						<button name="register" type="submit" class="btn btn-primary">Sign up</button>
+					</div>
+				</div>
+		</form>
+</div>
+<br><br><br><br>
+<footer>
+	<div style="text-align: center; padding: 10px; "> 2018 &copy; FIT TDC - Lập trình web 1</div>
+</footer>
+		
+</body>
+</html>
